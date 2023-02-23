@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { HiMenu } from "react-icons/hi";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { Link, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { Sidebar, UserProfile } from "../components";
 import { client } from "../client";
 import logo from "../assets/logo.png";
@@ -9,6 +9,7 @@ import Pins from "./Pins";
 import { userQuery } from "../utils/data";
 
 export default function Home() {
+  const navigate = useNavigate();
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [user, setUser] = useState(null);
   const scrollRef = useRef(null);
@@ -19,7 +20,6 @@ export default function Home() {
     const query = userQuery(userInfo?.sub);
     const fetchUser = async () => {
       const [data] = await client.fetch(query);
-
       setUser(data);
     };
     fetchUser();
@@ -29,7 +29,7 @@ export default function Home() {
   });
 
   return (
-    <div className="flex bg-neutral-200 md:flex-row flex-col h-screen transition-height duration-75 ease-out  ">
+    <div className="flex bg-neutral-200 md:flex-row flex-col h-screen transition-height duration-75 ease-out   ">
       <div className="hidden md:flex h-screen flex-initial">
         <Sidebar user={user && user} />
       </div>
